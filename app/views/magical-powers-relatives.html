@@ -3,6 +3,7 @@
 {% from 'back-link/macro.njk' import backLink %}
 {% from 'button/macro.njk' import button %}
 {% from 'radios/macro.njk' import radios %}
+{% from 'input/macro.njk' import input %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 
@@ -16,14 +17,29 @@
 {% block content %}
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-two-thirds">
-      <form action="/magical-powers-answer" method="post" novalidate>
+      <form action="/magical-powers-relatives" method="post" novalidate>
+
+
+{% set relativeHtml %}
+  {{ input({
+    id: "relative",
+    name: "relative",
+    value: data.relative,
+    classes: "nhsuk-u-width-two-thirds",
+    label: {
+      text: "Name the type of relationship "
+    }
+  }) }}
+{% endset -%}
+
+
 
         {{ radios({
-          name: "hasSymptoms",
-          value:data.hasSymptoms,
+          name: "hasRelative",
+          value:data.hasRelative,
           fieldset: {
             legend: {
-              text: "Do you have symptoms of magical powers?",
+              text: "Do you have any close relatives who have a magic power?",
               isPageHeading: true,
               classes: "nhsuk-fieldset__legend--l"
             }
@@ -31,15 +47,14 @@
           items: [
             {
               value: "Yes",
-              text: "Yes"
+              text: "Yes",
+      conditional: {
+        html: relativeHtml
+      }
             },
             {
               value: "No",
               text: "No"
-            },
-            {
-              value: "Not sure",
-              text: "I'm not sure"
             }
           ]
         }) }}

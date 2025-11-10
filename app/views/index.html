@@ -38,7 +38,12 @@
       <h1 class="nhsuk-heading-xl">
         {{ serviceName }}
       </h1>
+{% from 'action-link/macro.njk' import actionLink %}
 
+{{ actionLink({
+  text: "Order a test kit for magical powers",
+  href: "start-page"
+}) }}
       <!-- End of content -->
 
     </div>
